@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\CryptoCurrencyQuote.Data\CryptoCurrencyQuote.Data.csproj" />
+    <ProjectReference Include="..\CryptoCurrencyQuote.Data\CryptoCurrencyQuote.Data.csproj" />
     <ProjectReference Include="..\CryptoCurrencyQuote.Domain\CryptoCurrencyQuote.Domain.csproj" />
   </ItemGroup>
 
