@@ -12,8 +12,8 @@ public class CoinMarketCapClient : ICoinMarketCapClient
 
     public CoinMarketCapClient(IHttpClientFactory httpClientFactory, ISettings settings)
     {
-        _httpClientFactory = httpClientFactory;
-        _settings = settings;
+        _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(IHttpClientFactory));
+        _settings = settings ?? throw new ArgumentNullException(nameof(ISettings)); 
     }
 
     public async Task<CryptoCurrencyQuoteEntity?> GetQuoteAsync(string symbol)

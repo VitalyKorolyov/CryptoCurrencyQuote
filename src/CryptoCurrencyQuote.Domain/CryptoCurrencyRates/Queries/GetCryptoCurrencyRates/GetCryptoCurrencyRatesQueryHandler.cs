@@ -11,8 +11,8 @@ public class GetCryptoCurrencyRatesQueryHandler : IRequestHandler<GetCryptoCurre
 
     public GetCryptoCurrencyRatesQueryHandler(IMapper mapper, ICoinMarketCapClient coinMarketCapClient)
     {
-        _mapper = mapper;
-        _coinMarketCapClient = coinMarketCapClient;
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(IMapper));
+        _coinMarketCapClient = coinMarketCapClient ?? throw new ArgumentNullException(nameof(ICoinMarketCapClient));
     }
 
     public async Task<CryptoCurrencyRatesDto> Handle(GetCryptoCurrencyRatesQuery request, 
