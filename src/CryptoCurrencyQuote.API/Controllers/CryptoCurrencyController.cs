@@ -1,4 +1,3 @@
-using CryptoCurrencyQuote.Data.CoinMarketCapServices;
 using CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

@@ -1,11 +1,14 @@
 using CryptoCurrencyQuote.API.Infrastructure;
+using CryptoCurrencyQuote.Domain.Common.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+Settings settings = builder.Configuration.Get<Settings>()!;
+
 builder.Services.AddControllers();
-builder.Services.AddServices();
+builder.Services.AddServices(settings);
 builder.Services.AddHttpClient();
 
 var app = builder.Build();

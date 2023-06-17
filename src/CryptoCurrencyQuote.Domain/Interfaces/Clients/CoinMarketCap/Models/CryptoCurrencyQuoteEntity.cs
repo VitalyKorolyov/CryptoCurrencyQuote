@@ -2,19 +2,19 @@
 
 public record CryptoCurrencyQuoteEntity
 {
-    public required Dictionary<string, List<Cryptocurrency>> Data { get; init; }
+    public required Dictionary<string, List<CryptocurrencyEntity>> Data { get; init; }
 }
 
-public record Cryptocurrency
+public record CryptocurrencyEntity
 {
     public required int Id { get; init; }
     public required string Name { get; init; }
     public required string Symbol { get; init; }
     public required string Slug { get; init; }
-    public required Dictionary<string, Quote> Quote { get; init; }
+    public required Dictionary<string, QuoteEntity> Quote { get; init; }
 }
 
-public record Quote
+public record QuoteEntity
 {
     public decimal Price { get; init; }
     public decimal Volume_24h { get; init; }

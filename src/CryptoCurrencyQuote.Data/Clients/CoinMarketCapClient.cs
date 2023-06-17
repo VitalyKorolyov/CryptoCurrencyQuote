@@ -1,4 +1,5 @@
-﻿using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap;
+﻿using CryptoCurrencyQuote.Domain.Common.Settings;
+using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap;
 using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap.Models;
 using System.Net.Http.Json;
 
@@ -7,23 +8,24 @@ namespace CryptoCurrencyQuote.Data.CoinMarketCapServices;
 public class CoinMarketCapClient : ICoinMarketCapClient
 {
     private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ISettings _settings;
 
-    public CoinMarketCapClient(IHttpClientFactory httpClientFactory)
+    public CoinMarketCapClient(IHttpClientFactory httpClientFactory, ISettings settings)
     {
         _httpClientFactory = httpClientFactory;
+        _settings = settings;
     }
-
-    private const string ApiKey = "d1a05340-b794-460a-8489-eec810632b3c";
-    private const string ApiUrl = "https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest";
 
     public async Task<CryptoCurrencyQuoteEntity?> GetQuoteAsync(string symbol)
     {
         var client = _httpClientFactory.CreateClient();
 
-        client.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", ApiKey);
+        string url = _settings.CoinMarketCap.ApiUrl + "/v2/cryptocurrency/quotes/latest";
+
+        client.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", _settings.CoinMarketCap.ApiKey);
         client.DefaultRequestHeaders.Add("Accepts", "application/json");
 
-        var response = await client.GetAsync(ApiUrl + $"?symbol={symbol}&convert=USD");
+        var response = await client.GetAsync(url + $"?symbol={symbol}&convert=USD");
 
         if (response.IsSuccessStatusCode)
             return await response.Content.ReadFromJsonAsync<CryptoCurrencyQuoteEntity>();
