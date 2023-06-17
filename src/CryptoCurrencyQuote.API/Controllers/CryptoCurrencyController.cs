@@ -1,14 +1,15 @@
+using CryptoCurrencyQuote.Data.CoinMarketCapServices;
 using CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CryptoCurrencyQuote.API.Controllers;
 
-public class CryptoCurrencyRatesController : BaseApiController
+public class CryptoCurrencyController : BaseApiController
 {
     private IMediator _mediator;
 
-    public CryptoCurrencyRatesController(IMediator mediator)
+    public CryptoCurrencyController(IMediator mediator)
     {
         _mediator = mediator;
     }

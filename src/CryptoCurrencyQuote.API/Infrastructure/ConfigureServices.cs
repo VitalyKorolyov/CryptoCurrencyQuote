@@ -1,5 +1,7 @@
-﻿using CryptoCurrencyQuote.Domain.Common.Pipelines;
+﻿using CryptoCurrencyQuote.Data.CoinMarketCapServices;
+using CryptoCurrencyQuote.Domain.Common.Pipelines;
 using CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates;
+using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap;
 using FluentValidation;
 using MediatR;
 using System.Reflection;
@@ -19,6 +21,8 @@ public static class ConfigureServices
             cfg.RegisterServicesFromAssembly(domainAssembly);
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationPipeline<,>));
         });
+
+        services.AddScoped<ICoinMarketCapClient, CoinMarketCapClient>();
 
         return services;
     }
