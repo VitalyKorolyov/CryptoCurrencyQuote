@@ -8,7 +8,6 @@ public record GetCryptoCurrencyQuoteQuery : IRequest<Result<CryptoCurrencyQuoteD
 {
     public required string Code { get; init; }
 
-    //can get only one currency because of free plan
     public readonly IReadOnlyCollection<string> Currencies = new string[]
     {
         "USD", "EUR", "BRL", "GBP", "AUD"
