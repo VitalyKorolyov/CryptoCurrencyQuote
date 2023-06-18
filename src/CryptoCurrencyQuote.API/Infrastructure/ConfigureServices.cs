@@ -14,7 +14,7 @@ public static class ConfigureServices
     public static IServiceCollection AddServices(this IServiceCollection services,
         Settings settings)
     {
-        Assembly domainAssembly = typeof(GetCryptoCurrencyRatesQueryHandler).Assembly;
+        Assembly domainAssembly = typeof(GetCryptoCurrencyQuotesQueryHandler).Assembly;
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddValidatorsFromAssembly(domainAssembly);
@@ -24,7 +24,7 @@ public static class ConfigureServices
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationPipeline<,>));
         });
 
-        services.AddScoped<ICoinMarketCapClient, CoinMarketCapClient>();
+        services.AddScoped<ICoinMarketCapApiClient, CoinMarketCapApiClient>();
         services.AddSingleton<ISettings>(settings);
 
         return services;

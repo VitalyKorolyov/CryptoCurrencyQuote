@@ -5,18 +5,18 @@ using System.Net.Http.Json;
 
 namespace CryptoCurrencyQuote.Data.CoinMarketCapServices;
 
-public class CoinMarketCapClient : ICoinMarketCapClient
+public class CoinMarketCapApiClient : ICoinMarketCapApiClient
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ISettings _settings;
 
-    public CoinMarketCapClient(IHttpClientFactory httpClientFactory, ISettings settings)
+    public CoinMarketCapApiClient(IHttpClientFactory httpClientFactory, ISettings settings)
     {
         _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(IHttpClientFactory));
         _settings = settings ?? throw new ArgumentNullException(nameof(ISettings)); 
     }
 
-    public async Task<CryptoCurrencyQuoteEntity?> GetQuoteAsync(string symbol)
+    public async Task<CryptoCurrencyQuoteEntity?> GetQuotesAsync(string symbol)
     {
         var client = _httpClientFactory.CreateClient();
 

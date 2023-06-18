@@ -7,8 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 Settings settings = builder.Configuration.Get<Settings>()!;
 
-builder.Services.AddControllers();
 builder.Services.AddServices(settings);
+
+builder.Services.AddControllers();
+builder.Services.AddMemoryCache();
 builder.Services.AddHttpClient();
 
 var app = builder.Build();

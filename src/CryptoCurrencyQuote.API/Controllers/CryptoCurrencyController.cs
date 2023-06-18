@@ -6,10 +6,11 @@ namespace CryptoCurrencyQuote.API.Controllers;
 public class CryptoCurrencyController : BaseApiController
 {
     [HttpGet("{code}")]
-    public async Task<string> Get(string code)
+    public async Task<CryptoCurrencyQuotesDto> Get([FromQuery] string code)
     {
-        var result = await Mediator.Send(new GetCryptoCurrencyRatesQuery { Code = code });
+        var query = Mapper.Map<GetCryptoCurrencyQuotesQuery>(code);
+        var quotes = await Mediator.Send(query);
 
-        return "Test";
+        return quotes;
     }
 }
