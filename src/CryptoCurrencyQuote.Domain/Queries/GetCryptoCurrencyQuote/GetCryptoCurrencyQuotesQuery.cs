@@ -1,9 +1,10 @@
-﻿using CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote.Dtos;
+﻿using CryptoCurrencyQuote.Domain.Common;
+using CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote.Dtos;
 using MediatR;
 
 namespace CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote;
 
-public record GetCryptoCurrencyQuotesQuery : IRequest<CryptoCurrencyQuoteDto>
+public record GetCryptoCurrencyQuotesQuery : IRequest<Result<CryptoCurrencyQuoteDto>>
 {
     public required string Code { get; init; }
 

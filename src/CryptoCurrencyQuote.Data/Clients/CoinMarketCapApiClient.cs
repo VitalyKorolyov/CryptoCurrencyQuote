@@ -1,4 +1,5 @@
-﻿using CryptoCurrencyQuote.Domain.Common.Settings;
+﻿using CryptoCurrencyQuote.Domain.Common;
+using CryptoCurrencyQuote.Domain.Common.Settings;
 using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap;
 using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap.Models;
 using System.Net.Http.Json;
@@ -16,7 +17,7 @@ public class CoinMarketCapApiClient : ICoinMarketCapApiClient
         _settings = settings ?? throw new ArgumentNullException(nameof(ISettings)); 
     }
 
-    public async Task<CryptocurrencyEntity?> GetQuotesAsync(string symbol, IReadOnlyCollection<string> currencies)
+    public async Task<Result<CryptocurrencyEntity>> GetQuotesAsync(string symbol, IReadOnlyCollection<string> currencies)
     {
         var client = _httpClientFactory.CreateClient();
 
@@ -35,13 +36,16 @@ public class CoinMarketCapApiClient : ICoinMarketCapApiClient
                 var result = await response.Content.ReadFromJsonAsync<CryptoCurrencyQuotesEntity>();
                 quote.AddRange(result.Data.Values.SelectMany(x => x));
             }
+            else
+            {
+                var message = await response.Content.ReadAsStringAsync();
+                return Result<CryptocurrencyEntity>.BadRequest(message);
+            }
         }
-
-        if (quote.Count == 0) return null;
 
         var cryptoCurrencyInfo = quote.First();
 
-        return new()
+        return Result<CryptocurrencyEntity>.Ok(new()
         {
             Id = cryptoCurrencyInfo.Id,
             Name = cryptoCurrencyInfo.Name,
@@ -49,6 +53,6 @@ public class CoinMarketCapApiClient : ICoinMarketCapApiClient
             Slug = cryptoCurrencyInfo.Slug,
             Quote = quote.SelectMany(x => x.Quote)
                 .GroupBy(x => x.Key).ToDictionary(x => x.First().Key, y => y.First().Value)
-        };
+        });
     }
 }
