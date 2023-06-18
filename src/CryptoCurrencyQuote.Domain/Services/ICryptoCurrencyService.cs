@@ -1,8 +1,9 @@
-﻿using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap.Models;
+﻿using CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates;
+using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap.Models;
 
 namespace CryptoCurrencyQuote.Domain.Services;
 
 public interface ICryptoCurrencyService
 {
-    Task<CryptoCurrencyQuoteEntity?> GetQuotesAsync(string symbol);
+    Task<CryptoCurrencyQuotesDto?> GetQuotesAsync(string code);
 }

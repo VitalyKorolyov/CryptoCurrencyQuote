@@ -9,8 +9,7 @@ public class CryptoCurrencyController : BaseApiController
     public async Task<CryptoCurrencyQuotesDto> Get([FromQuery] string code)
     {
         var query = Mapper.Map<GetCryptoCurrencyQuotesQuery>(code);
-        var quotes = await Mediator.Send(query);
 
-        return quotes;
+        return await Mediator.Send(query);
     }
 }

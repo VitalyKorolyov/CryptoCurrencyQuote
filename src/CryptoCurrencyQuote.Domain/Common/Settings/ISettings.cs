@@ -2,5 +2,6 @@
 
 public interface ISettings
 {
-    public CoinMarketCapSettings CoinMarketCap { get; init; }
+    CoinMarketCapSettings CoinMarketCap { get; init; }
+    CacheSettings Cache { get; init; }
 }
