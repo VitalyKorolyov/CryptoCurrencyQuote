@@ -16,7 +16,7 @@ public class CoinMarketCapApiClient : ICoinMarketCapApiClient
         _settings = settings ?? throw new ArgumentNullException(nameof(ISettings)); 
     }
 
-    public async Task<CryptoCurrencyQuoteEntity?> GetQuotesAsync(string symbol)
+    public async Task<CryptoCurrencyQuotesEntity?> GetQuotesAsync(string symbol)
     {
         var client = _httpClientFactory.CreateClient();
 
@@ -28,7 +28,7 @@ public class CoinMarketCapApiClient : ICoinMarketCapApiClient
         var response = await client.GetAsync(url + $"?symbol={symbol}&convert=USD");
 
         if (response.IsSuccessStatusCode)
-            return await response.Content.ReadFromJsonAsync<CryptoCurrencyQuoteEntity>();
+            return await response.Content.ReadFromJsonAsync<CryptoCurrencyQuotesEntity>();
 
         return null;
     }

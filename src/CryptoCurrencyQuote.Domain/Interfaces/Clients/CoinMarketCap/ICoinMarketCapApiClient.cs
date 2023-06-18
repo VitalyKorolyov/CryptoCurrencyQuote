@@ -4,5 +4,5 @@ namespace CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap;
 
 public interface ICoinMarketCapApiClient
 {
-    Task<CryptoCurrencyQuoteEntity?> GetQuotesAsync(string symbol);
+    Task<CryptoCurrencyQuotesEntity?> GetQuotesAsync(string symbol);
 }

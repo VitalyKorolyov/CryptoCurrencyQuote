@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CryptoCurrencyQuote.Domain.Common.Settings;
-using CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates;
+using CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates.Dtos;
 using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -22,15 +22,18 @@ public class CryptoCurrencyService : ICryptoCurrencyService
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    public async Task<CryptoCurrencyQuotesDto?> GetQuotesAsync(string code)
+    public async Task<CryptoCurrencyQuoteDto?> GetQuotesAsync(string code)
     {
-        var quotes = await _memoryCache.GetOrCreateAsync(code,
+        var quote = await _memoryCache.GetOrCreateAsync(code,
             async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(_settings.Cache.Second);
                 return await _coinMarketCapClient.GetQuotesAsync(code);
             });
 
-        return _mapper.Map<CryptoCurrencyQuotesDto?>(quotes);
+        var dtos = _mapper.Map<IEnumerable<CryptoCurrencyQuoteDto?>>(
+            quote?.Data?.SelectMany(x => x.Value));
+
+        return dtos.FirstOrDefault();
     }
 }

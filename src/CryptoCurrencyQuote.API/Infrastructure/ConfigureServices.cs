@@ -3,6 +3,7 @@ using CryptoCurrencyQuote.Domain.Common.Pipelines;
 using CryptoCurrencyQuote.Domain.Common.Settings;
 using CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates;
 using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap;
+using CryptoCurrencyQuote.Domain.Services;
 using FluentValidation;
 using MediatR;
 using System.Reflection;
@@ -25,6 +26,7 @@ public static class ConfigureServices
         });
 
         services.AddScoped<ICoinMarketCapApiClient, CoinMarketCapApiClient>();
+        services.AddScoped<ICryptoCurrencyService, CryptoCurrencyService>();
         services.AddSingleton<ISettings>(settings);
 
         return services;
