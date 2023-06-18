@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote;
 
-public record GetCryptoCurrencyQuotesQuery : IRequest<Result<CryptoCurrencyQuoteDto>>
+public record GetCryptoCurrencyQuoteQuery : IRequest<Result<CryptoCurrencyQuoteDto>>
 {
     public required string Code { get; init; }
 

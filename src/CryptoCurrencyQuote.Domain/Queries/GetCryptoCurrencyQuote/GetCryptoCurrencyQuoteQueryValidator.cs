@@ -2,10 +2,10 @@
 
 namespace CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote;
 
-public class GetCryptoCurrencyQuotesQueryValidator : AbstractValidator<GetCryptoCurrencyQuotesQuery>
+public class GetCryptoCurrencyQuoteQueryValidator : AbstractValidator<GetCryptoCurrencyQuoteQuery>
 {
     //TODO here we have to check if a code is exist as well
-    public GetCryptoCurrencyQuotesQueryValidator()
+    public GetCryptoCurrencyQuoteQueryValidator()
     {
         RuleFor(x => x.Code)
             .NotNull()

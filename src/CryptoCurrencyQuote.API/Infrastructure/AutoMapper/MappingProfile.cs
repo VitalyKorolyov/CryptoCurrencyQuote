@@ -9,7 +9,7 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<string, GetCryptoCurrencyQuotesQuery>()
+        CreateMap<string, GetCryptoCurrencyQuoteQuery>()
             .ForMember(t => t.Code, opt => opt.MapFrom(s => s));
 
         CreateMap<CryptocurrencyEntity, CryptoCurrencyQuoteDto>()

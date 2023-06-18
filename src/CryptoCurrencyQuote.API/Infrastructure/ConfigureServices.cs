@@ -16,7 +16,7 @@ public static class ConfigureServices
     public static IServiceCollection AddServices(this IServiceCollection services,
         Settings settings)
     {
-        Assembly domainAssembly = typeof(GetCryptoCurrencyQuotesQueryHandler).Assembly;
+        Assembly domainAssembly = typeof(GetCryptoCurrencyQuoteQueryHandler).Assembly;
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddValidatorsFromAssembly(domainAssembly);

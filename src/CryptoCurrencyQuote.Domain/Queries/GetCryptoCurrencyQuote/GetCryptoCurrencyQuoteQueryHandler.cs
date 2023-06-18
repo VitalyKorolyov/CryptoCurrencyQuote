@@ -5,17 +5,17 @@ using MediatR;
 
 namespace CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote;
 
-public class GetCryptoCurrencyQuotesQueryHandler 
-    : IRequestHandler<GetCryptoCurrencyQuotesQuery, Result<CryptoCurrencyQuoteDto>>
+public class GetCryptoCurrencyQuoteQueryHandler 
+    : IRequestHandler<GetCryptoCurrencyQuoteQuery, Result<CryptoCurrencyQuoteDto>>
 {
     private readonly ICryptoCurrencyService _cryptoCurrencyService;
 
-    public GetCryptoCurrencyQuotesQueryHandler(ICryptoCurrencyService cryptoCurrencyService)
+    public GetCryptoCurrencyQuoteQueryHandler(ICryptoCurrencyService cryptoCurrencyService)
     {
         _cryptoCurrencyService = cryptoCurrencyService ?? throw new ArgumentNullException(nameof(ICryptoCurrencyService));
     }
 
-    public async Task<Result<CryptoCurrencyQuoteDto>> Handle(GetCryptoCurrencyQuotesQuery request,
+    public async Task<Result<CryptoCurrencyQuoteDto>> Handle(GetCryptoCurrencyQuoteQuery request,
         CancellationToken cancellationToken)
     {
         return await _cryptoCurrencyService.GetQuotesAsync(request.Code, request.Currencies);

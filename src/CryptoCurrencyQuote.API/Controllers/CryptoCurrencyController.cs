@@ -10,7 +10,7 @@ public class CryptoCurrencyController : BaseApiController
     [HttpGet("{code}")]
     public async Task<Result<CryptoCurrencyQuoteDto>> Get(string code)
     {
-        var query = Mapper.Map<GetCryptoCurrencyQuotesQuery>(code);
+        var query = Mapper.Map<GetCryptoCurrencyQuoteQuery>(code);
 
         return await Mediator.Send(query);
     }
