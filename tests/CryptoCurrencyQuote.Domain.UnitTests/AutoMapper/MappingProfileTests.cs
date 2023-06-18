@@ -5,7 +5,7 @@ using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap.Models;
 using CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote.Dtos;
 using Xunit;
 
-namespace CryptoCurrencyQuote.Domain.UnitTests;
+namespace CryptoCurrencyQuote.Domain.UnitTests.AutoMapper;
 
 public class MappingProfileTests
 {
@@ -32,7 +32,7 @@ public class MappingProfileTests
         Assert.Equal(result.Symbol, entity.Symbol);
         Assert.Equal(result.Slug, entity.Slug);
 
-        foreach((KeyValuePair<string, QuoteEntity> expected, QuoteDto res) in entity.Quote.Zip(result.Quote))
+        foreach ((KeyValuePair<string, QuoteEntity> expected, QuoteDto res) in entity.Quote.Zip(result.Quote))
         {
             Assert.Equal(expected.Value.Price, res.Price);
             Assert.Equal(expected.Key, res.Currency);

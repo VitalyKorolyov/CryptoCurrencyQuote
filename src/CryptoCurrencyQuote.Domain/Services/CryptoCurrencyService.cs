@@ -1,21 +1,21 @@
 ﻿using AutoMapper;
 using CryptoCurrencyQuote.Domain.Common;
+using CryptoCurrencyQuote.Domain.Common.Cache;
 using CryptoCurrencyQuote.Domain.Common.Settings;
 using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap;
 using CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote.Dtos;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace CryptoCurrencyQuote.Domain.Services;
 
 public class CryptoCurrencyService : ICryptoCurrencyService
 {
-    private readonly IMemoryCache _memoryCache;
+    private readonly IMemoryCacheWrapper _memoryCache;
     private readonly ISettings _settings;
     private readonly IMapper _mapper;
     private readonly ICoinMarketCapApiClient _coinMarketCapClient;
 
-    public CryptoCurrencyService(ICoinMarketCapApiClient coinMarketCapClient, 
-        IMemoryCache memoryCache, ISettings settings, IMapper mapper)
+    public CryptoCurrencyService(ICoinMarketCapApiClient coinMarketCapClient,
+        IMemoryCacheWrapper memoryCache, ISettings settings, IMapper mapper)
     {
         _coinMarketCapClient = coinMarketCapClient ?? throw new ArgumentNullException(nameof(ICoinMarketCapApiClient));
         _memoryCache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));

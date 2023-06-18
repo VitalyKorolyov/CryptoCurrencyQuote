@@ -1,4 +1,5 @@
 ﻿using CryptoCurrencyQuote.Data.CoinMarketCapServices;
+using CryptoCurrencyQuote.Domain.Common.Cache;
 using CryptoCurrencyQuote.Domain.Common.Pipelines;
 using CryptoCurrencyQuote.Domain.Common.Settings;
 using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap;
@@ -27,6 +28,8 @@ public static class ConfigureServices
 
         services.AddScoped<ICoinMarketCapApiClient, CoinMarketCapApiClient>();
         services.AddScoped<ICryptoCurrencyService, CryptoCurrencyService>();
+        services.AddScoped<IMemoryCacheWrapper, MemoryCacheWrapper>();
+
         services.AddSingleton<ISettings>(settings);
 
         return services;
