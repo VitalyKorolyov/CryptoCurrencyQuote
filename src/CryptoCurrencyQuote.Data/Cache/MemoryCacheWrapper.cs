@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using CryptoCurrencyQuote.Domain.Interfaces.Cache;
+using Microsoft.Extensions.Caching.Memory;
 
-namespace CryptoCurrencyQuote.Domain.Common.Cache;
+namespace CryptoCurrencyQuote.Data.Cache;
 
-public class MemoryCacheWrapper : IMemoryCacheWrapper
+public class MemoryCacheWrapper : ICacheWrapper
 {
     private readonly IMemoryCache _memoryCache;
 

@@ -27,13 +27,13 @@ public class ValidationPipeline<TRequest, TResponse> : IPipelineBehavior<TReques
         var failures = validationResults
             .Where(r => r.Errors.Any())
             .SelectMany(r => r.Errors)
-            .ToList();
+            .ToArray();
 
         if (failures.Any())
         {
             var errorMessage = string.Join("\n", failures.Select(x => x.ErrorMessage));
 
-            var validationError = (TResponse)Activator.CreateInstance(typeof(TResponse));
+            var validationError = (TResponse)Activator.CreateInstance(typeof(TResponse))!;
             validationError.Error = errorMessage;
             return validationError;
         }

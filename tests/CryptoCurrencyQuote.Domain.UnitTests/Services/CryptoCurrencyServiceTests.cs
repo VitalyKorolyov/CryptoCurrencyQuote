@@ -9,13 +9,13 @@ using Microsoft.Extensions.Caching.Memory;
 using Xunit;
 using FakeItEasy;
 using AutoFixture.Xunit2;
-using CryptoCurrencyQuote.Domain.Common.Cache;
+using CryptoCurrencyQuote.Domain.Interfaces.Cache;
 
 namespace CryptoCurrencyQuote.Domain.UnitTests.Services;
 
 public class CryptoCurrencyServiceTests
 {
-    private readonly IMemoryCacheWrapper _memoryCache;
+    private readonly ICacheWrapper _memoryCache;
     private readonly ISettings _settings;
     private readonly IMapper _mapper;
     private readonly ICoinMarketCapApiClient _coinMarketCapClient;
@@ -23,7 +23,7 @@ public class CryptoCurrencyServiceTests
 
     public CryptoCurrencyServiceTests()
     {
-        _memoryCache = A.Fake<IMemoryCacheWrapper>();
+        _memoryCache = A.Fake<ICacheWrapper>();
         _settings = A.Fake<ISettings>();
         _mapper = A.Fake<IMapper>();
         _coinMarketCapClient = A.Fake<ICoinMarketCapApiClient>();
@@ -66,12 +66,12 @@ public class CryptoCurrencyServiceTests
 
     [Theory, AutoData]
     public async Task GetQuotesAsync_ShouldReturnOkResult_WhenQuoteResultIsSuccess(
-        List<string> currencies, string code, CryptoCurrencyQuoteDto expectedDto, CryptocurrencyEntity entity)
+        List<string> currencies, string code, CryptoCurrencyQuotesDto expectedDto, CryptocurrencyEntity entity)
     {
         // Arrange
         var quoteResult = Result<CryptocurrencyEntity>.Ok(entity);
 
-        A.CallTo(() => _mapper.Map<CryptoCurrencyQuoteDto>(quoteResult.Value))
+        A.CallTo(() => _mapper.Map<CryptoCurrencyQuotesDto>(quoteResult.Value))
             .Returns(expectedDto);
         A.CallTo(() => _memoryCache.GetOrCreateAsync(code, A<Func<ICacheEntry, Task<Result<CryptocurrencyEntity>>>>.Ignored))
             .Returns(quoteResult);
@@ -82,7 +82,7 @@ public class CryptoCurrencyServiceTests
         // Assert
         Assert.True(result.IsSuccess);
         Assert.Equal(expectedDto, result.Value);
-        A.CallTo(() => _mapper.Map<CryptoCurrencyQuoteDto>(quoteResult.Value)).MustHaveHappenedOnceExactly();
+        A.CallTo(() => _mapper.Map<CryptoCurrencyQuotesDto>(quoteResult.Value)).MustHaveHappenedOnceExactly();
         A.CallTo(() => _memoryCache.GetOrCreateAsync(code, A<Func<ICacheEntry, Task<Result<CryptocurrencyEntity>>>>.Ignored)).MustHaveHappenedOnceExactly();
     }
 
@@ -103,7 +103,7 @@ public class CryptoCurrencyServiceTests
         // Assert
         Assert.False(result.IsSuccess);
         Assert.Equal(errorMessage, result.Error);
-        A.CallTo(() => _mapper.Map<CryptoCurrencyQuoteDto>(quoteResult.Value)).MustNotHaveHappened();
+        A.CallTo(() => _mapper.Map<CryptoCurrencyQuotesDto>(quoteResult.Value)).MustNotHaveHappened();
         A.CallTo(() => _memoryCache.GetOrCreateAsync(code, A<Func<ICacheEntry, Task<Result<CryptocurrencyEntity>>>>.Ignored)).MustHaveHappenedOnceExactly();
     }
 }

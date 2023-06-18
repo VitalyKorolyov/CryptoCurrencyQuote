@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 
-namespace CryptoCurrencyQuote.Domain.Common.Cache;
+namespace CryptoCurrencyQuote.Domain.Interfaces.Cache;
 
-public interface IMemoryCacheWrapper
+public interface ICacheWrapper
 {
     Task<TItem> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory);
 }

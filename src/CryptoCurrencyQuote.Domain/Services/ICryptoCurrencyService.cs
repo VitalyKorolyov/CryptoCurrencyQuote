@@ -5,5 +5,5 @@ namespace CryptoCurrencyQuote.Domain.Services;
 
 public interface ICryptoCurrencyService
 {
-    Task<Result<CryptoCurrencyQuoteDto>> GetQuotesAsync(string code, IReadOnlyCollection<string> currencies);
+    Task<Result<CryptoCurrencyQuotesDto>> GetQuotesAsync(string code, IReadOnlyCollection<string> currencies);
 }

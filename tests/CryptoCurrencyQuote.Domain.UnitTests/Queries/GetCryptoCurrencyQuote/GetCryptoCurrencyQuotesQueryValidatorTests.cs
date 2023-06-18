@@ -5,9 +5,9 @@ namespace CryptoCurrencyQuote.Domain.UnitTests.Queries.GetCryptoCurrencyQuote;
 
 public class GetCryptoCurrencyQuotesQueryValidatorTests
 {
-    private GetCryptoCurrencyQuoteQueryValidator CreateGetCryptoCurrencyQuotesQueryValidator()
+    private GetCryptoCurrencyQuotesQueryValidator CreateGetCryptoCurrencyQuotesQueryValidator()
     {
-        return new GetCryptoCurrencyQuoteQueryValidator();
+        return new GetCryptoCurrencyQuotesQueryValidator();
     }
 
     [Theory]
@@ -17,7 +17,7 @@ public class GetCryptoCurrencyQuotesQueryValidatorTests
     {
         // Arrange
         var validator = CreateGetCryptoCurrencyQuotesQueryValidator();
-        var query = new GetCryptoCurrencyQuoteQuery { Code = code };
+        var query = new GetCryptoCurrencyQuotesQuery { Code = code };
 
         // Act
         var result = validator.Validate(query);

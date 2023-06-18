@@ -4,11 +4,11 @@ using MediatR;
 
 namespace CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote;
 
-public record GetCryptoCurrencyQuoteQuery : IRequest<Result<CryptoCurrencyQuoteDto>>
+public record GetCryptoCurrencyQuotesQuery : IRequest<Result<CryptoCurrencyQuotesDto>>
 {
     public required string Code { get; init; }
 
-    public readonly IReadOnlyCollection<string> Currencies = new string[]
+    public IReadOnlyCollection<string> Currencies { get; init; } = new string[]
     {
         "USD", "EUR", "BRL", "GBP", "AUD"
     };

@@ -25,14 +25,14 @@ public class MappingProfileTests
     public void Map_CryptocurrencyEntity_On_CryptoCurrencyQuoteDto_Ok(CryptocurrencyEntity entity)
     {
         // Act
-        var result = _mapper.Map<CryptoCurrencyQuoteDto>(entity);
+        var result = _mapper.Map<CryptoCurrencyQuotesDto>(entity);
 
         // Assert
         Assert.Equal(result.Name, entity.Name);
         Assert.Equal(result.Symbol, entity.Symbol);
         Assert.Equal(result.Slug, entity.Slug);
 
-        foreach ((KeyValuePair<string, QuoteEntity> expected, QuoteDto res) in entity.Quote.Zip(result.Quote))
+        foreach ((KeyValuePair<string, QuoteEntity> expected, QuoteDto res) in entity.Quote.Zip(result.Quotes))
         {
             Assert.Equal(expected.Value.Price, res.Price);
             Assert.Equal(expected.Key, res.Currency);

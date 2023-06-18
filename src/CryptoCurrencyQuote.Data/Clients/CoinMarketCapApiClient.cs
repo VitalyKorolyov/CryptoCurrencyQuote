@@ -31,17 +31,18 @@ public class CoinMarketCapApiClient : ICoinMarketCapApiClient
         {
             var response = await client.GetAsync(url + $"?symbol={symbol}&convert={currency}");
 
-            if (response.IsSuccessStatusCode)
-            {
-                var result = await response.Content.ReadFromJsonAsync<CryptoCurrencyQuotesEntity>();
-                quote.AddRange(result.Data.Values.SelectMany(x => x));
-            }
-            else
+            if (!response.IsSuccessStatusCode)
             {
                 var message = await response.Content.ReadAsStringAsync();
                 return Result<CryptocurrencyEntity>.BadRequest(message);
             }
+
+            var result = await response.Content.ReadFromJsonAsync<CryptoCurrencyQuotesEntity>();
+            quote.AddRange(result!.Data.Values.SelectMany(x => x));
         }
+
+        if (quote.Count == 0) 
+            return Result<CryptocurrencyEntity>.BadRequest("Cryptocurrency data not found.");
 
         var cryptoCurrencyInfo = quote.First();
 

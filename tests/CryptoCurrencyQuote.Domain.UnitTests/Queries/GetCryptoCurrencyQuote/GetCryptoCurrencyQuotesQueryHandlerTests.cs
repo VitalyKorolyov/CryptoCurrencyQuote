@@ -17,14 +17,14 @@ public class GetCryptoCurrencyQuotesQueryHandlerTests
         cryptoCurrencyService = A.Fake<ICryptoCurrencyService>();
     }
 
-    private GetCryptoCurrencyQuoteQueryHandler CreateGetCryptoCurrencyQuotesQueryHandler()
+    private GetCryptoCurrencyQuotesQueryHandler CreateGetCryptoCurrencyQuotesQueryHandler()
     {
-        return new GetCryptoCurrencyQuoteQueryHandler(cryptoCurrencyService);
+        return new GetCryptoCurrencyQuotesQueryHandler(cryptoCurrencyService);
     }
 
     [Theory, AutoData]
     public async Task Handle_Should_ReturnResultFromCryptoCurrencyService(
-        GetCryptoCurrencyQuoteQuery query, Result<CryptoCurrencyQuoteDto> expectedResult)
+        GetCryptoCurrencyQuotesQuery query, Result<CryptoCurrencyQuotesDto> expectedResult)
     {
         // Arrange
         A.CallTo(() => cryptoCurrencyService.GetQuotesAsync(query.Code, query.Currencies))
@@ -45,6 +45,6 @@ public class GetCryptoCurrencyQuotesQueryHandlerTests
     {
         // Arrange, Act, Assert
         Assert.Throws<ArgumentNullException>(() =>
-            new GetCryptoCurrencyQuoteQueryHandler(null));
+            new GetCryptoCurrencyQuotesQueryHandler(null));
     }
 }
