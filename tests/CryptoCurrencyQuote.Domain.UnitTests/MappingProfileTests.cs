@@ -1,8 +1,8 @@
 using AutoFixture.Xunit2;
 using AutoMapper;
 using CryptoCurrencyQuote.API.Infrastructure.AutoMapper;
-using CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates.Dtos;
 using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap.Models;
+using CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote.Dtos;
 using Xunit;
 
 namespace CryptoCurrencyQuote.Domain.UnitTests;

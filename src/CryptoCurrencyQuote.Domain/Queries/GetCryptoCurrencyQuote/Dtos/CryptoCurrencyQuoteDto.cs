@@ -1,4 +1,4 @@
-﻿namespace CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates.Dtos;
+﻿namespace CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote.Dtos;
 
 public record CryptoCurrencyQuoteDto
 {

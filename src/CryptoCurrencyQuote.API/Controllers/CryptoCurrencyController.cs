@@ -1,5 +1,5 @@
-using CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates;
-using CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates.Dtos;
+using CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote;
+using CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CryptoCurrencyQuote.API.Controllers;

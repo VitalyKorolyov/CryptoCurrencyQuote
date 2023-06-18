@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates;
-using CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates.Dtos;
 using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap.Models;
+using CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote;
+using CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote.Dtos;
 
 namespace CryptoCurrencyQuote.API.Infrastructure.AutoMapper;
 

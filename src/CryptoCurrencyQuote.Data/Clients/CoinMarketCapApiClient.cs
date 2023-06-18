@@ -16,7 +16,7 @@ public class CoinMarketCapApiClient : ICoinMarketCapApiClient
         _settings = settings ?? throw new ArgumentNullException(nameof(ISettings)); 
     }
 
-    public async Task<CryptoCurrencyQuotesEntity?> GetQuotesAsync(string symbol)
+    public async Task<CryptocurrencyEntity?> GetQuotesAsync(string symbol, IReadOnlyCollection<string> currencies)
     {
         var client = _httpClientFactory.CreateClient();
 
@@ -25,11 +25,30 @@ public class CoinMarketCapApiClient : ICoinMarketCapApiClient
         client.DefaultRequestHeaders.Add("X-CMC_PRO_API_KEY", _settings.CoinMarketCap.ApiKey);
         client.DefaultRequestHeaders.Add("Accepts", "application/json");
 
-        var response = await client.GetAsync(url + $"?symbol={symbol}&convert=USD");
+        List<CryptocurrencyEntity> quote = new();
+        foreach (var currency in currencies)
+        {
+            var response = await client.GetAsync(url + $"?symbol={symbol}&convert={currency}");
 
-        if (response.IsSuccessStatusCode)
-            return await response.Content.ReadFromJsonAsync<CryptoCurrencyQuotesEntity>();
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<CryptoCurrencyQuotesEntity>();
+                quote.AddRange(result.Data.Values.SelectMany(x => x));
+            }
+        }
 
-        return null;
+        if (quote.Count == 0) return null;
+
+        var cryptoCurrencyInfo = quote.First();
+
+        return new()
+        {
+            Id = cryptoCurrencyInfo.Id,
+            Name = cryptoCurrencyInfo.Name,
+            Symbol = cryptoCurrencyInfo.Symbol,
+            Slug = cryptoCurrencyInfo.Slug,
+            Quote = quote.SelectMany(x => x.Quote)
+                .GroupBy(x => x.Key).ToDictionary(x => x.First().Key, y => y.First().Value)
+        };
     }
 }

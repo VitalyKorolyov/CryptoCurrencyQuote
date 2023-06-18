@@ -11,7 +11,7 @@ public record CryptocurrencyEntity
     public required string Name { get; init; }
     public required string Symbol { get; init; }
     public required string Slug { get; init; }
-    public required IReadOnlyDictionary<string, QuoteEntity> Quote { get; init; }
+    public required Dictionary<string, QuoteEntity> Quote { get; init; }
 }
 
 public record QuoteEntity

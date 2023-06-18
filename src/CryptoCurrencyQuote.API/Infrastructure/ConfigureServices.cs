@@ -1,8 +1,8 @@
 ﻿using CryptoCurrencyQuote.Data.CoinMarketCapServices;
 using CryptoCurrencyQuote.Domain.Common.Pipelines;
 using CryptoCurrencyQuote.Domain.Common.Settings;
-using CryptoCurrencyQuote.Domain.CryptoCurrencyRates.Queries.GetCryptoCurrencyRates;
 using CryptoCurrencyQuote.Domain.Interfaces.Clients.CoinMarketCap;
+using CryptoCurrencyQuote.Domain.Queries.GetCryptoCurrencyQuote;
 using CryptoCurrencyQuote.Domain.Services;
 using FluentValidation;
 using MediatR;
