@@ -10,6 +10,7 @@ I spent around 12 hours on the coding assignment. If I had more time, I would co
 - Improving CoinMarketCapApiClient to fetch all currencies in one request(it's limited of free plan, we can ask quote just for one currency)
 - Adding rate limiter
 - Using Redis instead of memory cache
+- Enhancing storing sensitive information in the configuration file. We can follow best practices to use User Secrets, Environment Variables, or third-party configuration providers.
 
 # Notes:
 - To run the request, please use the following URL http://localhost:5294/api/CryptoCurrency/BTC
